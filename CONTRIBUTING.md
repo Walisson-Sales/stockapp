@@ -7,7 +7,7 @@ Bem-vindo ao time! Este guia contém tudo que você precisa para configurar seu 
 Para que você possa enviar (`push`) e receber (`pull`) o código do projeto, você precisa autorizar o Firebase Studio (IDX) a se conectar com sua conta do GitHub.
 
 1.  **Acesse o Ambiente de Trabalho (Workspace)**
-    Use o link do workspace compartilhado na descrição do grupo para abrir o projeto no Firebase Studio.
+    Use o link do workspace compartilhado para abrir o projeto no Firebase Studio.
 
 2.  **Abra o Terminal**
     Dentro do ambiente, abra um novo terminal (geralmente no menu superior `Terminal > New Terminal`).
