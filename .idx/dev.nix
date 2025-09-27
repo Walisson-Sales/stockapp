@@ -8,11 +8,12 @@
     
   ];
 
+  # Isso vem como padrão, mas estava dando conflito com o nosso arquivo .env:
   # Sets environment variables in the workspace
-  env = {
-    # You can get a Gemini API key through the IDX Integrations panel to the left!
-    POSTGRESQL_CONN_STRING = "postgresql://user:mypassword@localhost:5432/youtube?sslmode=disable";
-  };
+  # env = {
+  #   # You can get a Gemini API key through the IDX Integrations panel to the left!
+  #   POSTGRESQL_CONN_STRING = "postgresql://user:mypassword@localhost:5432/youtube?sslmode=disable";
+  # };
 
   services.postgres = {
     enable = true;
