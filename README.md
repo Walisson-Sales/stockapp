@@ -4,7 +4,6 @@ A simple postgres starter for Project IDX.
 
 > NOTE: You might have to reload the window once the dependencies are installed for the SQLConnection extension to work as expected
 
-
 ## Connect to DB
 
 To connect to the DB, run the following command in terminal:
