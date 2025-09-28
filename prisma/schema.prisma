@@ -4,6 +4,7 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+// Configurações do banco:
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -14,10 +15,63 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  nome  String
-  idade Int
+// Usuário:
+model Usuario {
+  id Int @id @default(autoincrement())
+  nome String
+  email String
+  senha String
+  nomeEmpresa String
+  tipoComercio String
+  cpfCnpj String
+  produtos Produto[]
+  movimentacoes Movimentacao[]
+}
 
-@@map("users")
+// Produto:
+model Produto {
+  id Int @id @default(autoincrement())
+  nome String
+  cor String?
+  tamanho String?
+  precoCusto Decimal // Custo de fabricação
+  precoVenda Decimal // Preco de venda do produto
+  idCategoria Int
+  idUsuario Int
+  estoque Estoque?
+  movimentacoes Movimentacao[]
+  categoria Categoria @relation(fields: [idCategoria], references: [id])
+  usuario Usuario @relation(fields: [idUsuario], references: [id])
+}
+
+// Estoque:
+model Estoque {
+  id Int @id @default(autoincrement())
+  quantidadeAtual Int
+  quantidadeMinima Int
+  localProduto String?
+  status String @default("Disponivel") // Disponível, indisponível
+  idProduto Int @unique
+  produto Produto @relation(fields: [idProduto], references: [id])
+}
+
+// Categoria:
+model Categoria {
+  id Int @id @default(autoincrement())
+  nome String
+  descricao String? 
+  produtos Produto[]
+}
+
+// Movimentação:
+model Movimentacao {
+  id Int @id @default(autoincrement())
+  quantidade Int
+  tipoMovimentacao String // Entrada ou saída
+  descricao String?
+  dataMovimentacao DateTime @default(now())
+  idUsuario Int
+  idProduto Int
+  usuario Usuario @relation(fields: [idUsuario], references: [id])
+  produto Produto @relation(fields: [idProduto], references: [id])
 }
