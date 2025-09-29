@@ -1,0 +1,77 @@
+import { Router } from "express";
+import categoriaController from "../controllers/categoriaController";
+
+const router: Router = Router();
+
+/**
+ * @swagger
+ * /categorias:
+ *   post:
+ *     summary: Cria uma nova categoria
+ *     tags: [Categorias]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome:
+ *                 type: string
+ *                 description: O nome da nova categoria.
+ *                 example: "Toalhas de Banho"
+ *               descricao:
+ *                 type: string
+ *                 description: Uma descrição opcional para a categoria.
+ *                 example: "Toalhas grandes e macias para o corpo."
+ *             required:
+ *               - nome
+ *     responses:
+ *       '201':
+ *         description: Categoria criada com sucesso.
+ *       '400':
+ *         description: Dados de entrada inválidos.
+ */
+router.post("/categorias", categoriaController.criarCategoria);
+
+/**
+ * @swagger
+ * /categorias:
+ *   get:
+ *     summary: Listar todas as categorias
+ *     tags:
+ *       - Categorias
+ *     responses:
+ *       '200':
+ *         description: Lista de categorias retornada com sucesso.
+ *       '500':
+ *         description: Erro interno do servidor.
+ */
+router.get("/categorias", categoriaController.listarTodasCategorias);
+
+/**
+ * @swagger
+ * /categorias/{id}:
+ *   get:
+ *     summary: Retorna a categoria com o id fornecido
+ *     tags:
+ *       - Categorias
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *         description: Id da categoria
+ *     responses:
+ *       '200':
+ *         description: Categoria encontrada com sucesso.
+ *       '400':
+ *         description: Id inválido.
+ *       '404':
+ *         description: Categoria não encontrada.
+ */
+router.get("/categorias/:id", categoriaController.pegarCategoriaPorId);
+
+export default router;
