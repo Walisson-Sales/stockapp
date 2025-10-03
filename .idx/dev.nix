@@ -5,14 +5,16 @@
   channel = "stable-23.11"; # or "unstable"
   # Use https://search.nixos.org/packages to find packages
   packages = [
-    
+    pkgs.docker-compose
   ];
 
+  services.docker.enable = true;
+  
   # Isso vem como padrão, mas estava dando conflito com o nosso arquivo .env:
   # Sets environment variables in the workspace
   # env = {
   #   # You can get a Gemini API key through the IDX Integrations panel to the left!
-  #   POSTGRESQL_CONN_STRING = "postgresql://user:mypassword@localhost:5432/youtube?sslmode=disable";
+  #   POSTGRESQL_CONN_STRING = "postgresql://user:mypassword@localhost:5432/stockapp?sslmode=disable";
   # };
 
   services.postgres = {

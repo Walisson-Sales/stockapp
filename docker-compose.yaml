@@ -1,0 +1,27 @@
+# Arquivo: docker-compose.yml
+version: '3.8'
+
+services:
+  # Define o serviço do nosso banco de dados
+  db:
+    # Usa a imagem oficial do PostgreSQL, versão 16
+    image: postgres:16
+    # Reinicia o container automaticamente se ele parar
+    restart: always
+    # Nome do container para fácil identificação
+    container_name: stockapp-db
+    # Mapeia a porta 5433 do container para a porta 5433 da sua máquina
+    ports:
+      - "5433:5432"
+    # Variáveis de ambiente para configurar o banco
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    # Garante que os dados sejam salvos mesmo que o container seja removido
+    volumes:
+      - stockapp-data:/var/lib/postgresql/data
+
+# Define o volume para persistir os dados
+volumes:
+  stockapp-data:
