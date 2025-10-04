@@ -1,3 +1,4 @@
+import path from "path";
 import prisma from "../database/prisma";
 import { Categoria } from "../generated/prisma";
 
@@ -15,6 +16,17 @@ const categoriaService = {
         return prisma.categoria.findUnique({
             where: {id}
         });
+    },
+    async atualizarCategoria(id: number, data: {nome: string, descricao: string}){
+        return prisma.categoria.update({
+            where: {id},
+            data
+        })
+    },
+    async deletarCategoria(id: number){
+        return prisma.categoria.delete({
+            where: {id}
+        })
     }
 }
 
