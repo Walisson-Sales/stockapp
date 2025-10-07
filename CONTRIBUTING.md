@@ -1,43 +1,15 @@
-# 🚀 Guia de Contribuição - StockApp
+# 🤝 Guia de Contribuição do StockApp
 
-Bem-vindo ao time! Este guia contém tudo que você precisa para configurar seu ambiente e começar a contribuir com o projeto.
+Obrigado pelo seu interesse em contribuir! Para manter o projeto organizado e o trabalho em equipe eficiente, pedimos que todos sigam as diretrizes abaixo.
 
-## 1. Conectando o Firebase Studio ao GitHub
+## 💻 Fluxo de Trabalho com Git
 
-Para que você possa enviar (`push`) e receber (`pull`) o código do projeto, você precisa autorizar o Firebase Studio (IDX) a se conectar com sua conta do GitHub.
-
-1.  **Acesse o Ambiente de Trabalho (Workspace)**
-    Use o link do workspace compartilhado para abrir o projeto no Firebase Studio.
-
-2.  **Abra o Terminal**
-    Dentro do ambiente, abra um novo terminal (geralmente no menu superior `Terminal > New Terminal`).
-
-3.  **Inicie a Autenticação**
-    No terminal, digite o seguinte comando para tentar baixar as últimas atualizações. Isso forçará o pedido de autenticação.
-    ```bash
-    git pull
-    ```
-
-4.  **Clique na Notificação de Login**
-    O IDX mostrará um pop-up ou uma notificação com um botão **`Sign in with GitHub`** (Entrar com o GitHub). Clique nesse botão.
-
-5.  **Autorize no Site do GitHub**
-    Seu navegador abrirá uma nova aba. Faça login no GitHub, se necessário, e digite a senha que você já copiou automaticamente quando foi para a outra página e clique para confirmar.
-
-6.  **Confirme a Conexão**
-    Após autorizar, você será redirecionado de volta para o Firebase Studio. A conexão estará completa e o comando `git pull` agora deve funcionar.
-
-## 2. Fluxo de Trabalho (subindo o seu código)
-
-Para garantir a organização do projeto, todo o desenvolvimento será feito nas branches `dev` e `bugfix`. A branch `main` será usada apenas para a versão estável e final.
-
-### Regra de Ouro
-**Sempre sincronize (`git pull`) antes de começar a trabalhar** e salve (`commit` e `push`) suas alterações com frequência para evitar conflitos grandes.
+**Regra de Ouro:** Nunca trabalhe diretamente na branch `main`. Todo o desenvolvimento ativo acontece nas branches `dev` (para novas funcionalidades) e `bugfix` (para correções).
 
 ---
 ### Para Novas Funcionalidades (usando a branch `dev`)
 
-1.  **Mude para a branch `dev` (Certifique-se de estar na branch certa!!):**
+1.  **Mude para a branch `dev`:**
     ```bash
     git checkout dev
     ```
@@ -47,7 +19,6 @@ Para garantir a organização do projeto, todo o desenvolvimento será feito nas
     ```bash
     git pull origin dev
     ```
-    (faça isso antes de começar a trabalhar no código)
 
 3.  **Faça seu Trabalho:**
     Crie e edite seu código diretamente na branch `dev`.
@@ -57,12 +28,13 @@ Para garantir a organização do projeto, todo o desenvolvimento será feito nas
     # Adicione os arquivos que você modificou
     git add .
 
-    # Crie o commit com uma mensagem clara (ex: "Adiciona tela de login")
-    git commit -m "Descreva a nova funcionalidade"
+    # Crie o commit com uma mensagem clara
+    git commit -m "feat: Descreva a nova funcionalidade"
 
     # Envie suas alterações para o GitHub
     git push origin dev
     ```
+
 ---
 ### Para Correção de Bugs (usando a branch `bugfix`)
 
@@ -86,6 +58,9 @@ O processo é o mesmo, mas usando a branch `bugfix`.
     git commit -m "fix: Descreve o bug que foi corrigido"
     git push origin bugfix
     ```
-(essa branch bugfix serve para você mandar o código com problema e eu possa ajudar a resolver)
 
 > **Aviso:** Se ao dar `push` você receber um erro, provavelmente significa que alguém enviou código novo enquanto você trabalhava. Você precisará rodar `git pull` novamente, resolver os possíveis conflitos, e então tentar o `push` de novo.
+
+## 🗣️ Comunicação
+
+Para evitar conflitos, sempre avise no nosso grupo de comunicação (WhatsApp/Discord) antes de começar a trabalhar em uma funcionalidade grande ou de fazer um `push` com muitas alterações. Uma boa comunicação é a chave para o sucesso do time!

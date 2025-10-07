@@ -1,91 +1,100 @@
-# 🚀 Guia de Contribuição - StockApp
+# StockApp 📦
 
-Bem-vindo ao time! Este guia contém tudo que você precisa para configurar seu ambiente e começar a contribuir com o projeto.
+![Status do Projeto](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
+![Linguagem](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Banco de Dados](https://img.shields.io/badge/PostgreSQL-316192?logo=postgresql&logoColor=white)
 
-## 1. Conectando o Firebase Studio ao GitHub
+Um sistema de gerenciamento de estoque simples e moderno, projetado para pequenos comerciantes.
 
-Para que você possa enviar (`push`) e receber (`pull`) o código do projeto, você precisa autorizar o Firebase Studio (IDX) a se conectar com sua conta do GitHub.
+## 🎯 Sobre o Projeto
 
-1.  **Acesse o Ambiente de Trabalho (Workspace)**
-    Use o link do workspace compartilhado na descrição do grupo para abrir o projeto no Firebase Studio.
-
-2.  **Abra o Terminal**
-    Dentro do ambiente, abra um novo terminal (geralmente no menu superior `Terminal > New Terminal`).
-
-3.  **Inicie a Autenticação**
-    No terminal, digite o seguinte comando para tentar baixar as últimas atualizações. Isso forçará o pedido de autenticação.
-    ```bash
-    git pull
-    ```
-
-4.  **Clique na Notificação de Login**
-    O IDX mostrará um pop-up ou uma notificação com um botão **`Sign in with GitHub`** (Entrar com o GitHub). Clique nesse botão.
-
-5.  **Autorize no Site do GitHub**
-    Seu navegador abrirá uma nova aba. Faça login no GitHub, se necessário, e digite a senha que você já copiou automaticamente quando foi para a outra página e clique para confirmar.
-
-6.  **Confirme a Conexão**
-    Após autorizar, você será redirecionado de volta para o Firebase Studio. A conexão estará completa e o comando `git pull` agora deve funcionar.
-
-## 2. Fluxo de Trabalho (subindo o seu código)
-
-Para garantir a organização do projeto, todo o desenvolvimento será feito nas branches `dev` e `bugfix`. A branch `main` será usada apenas para a versão estável e final.
-
-### Regra de Ouro
-**Sempre sincronize (`git pull`) antes de começar a trabalhar** e salve (`commit` e `push`) suas alterações com frequência para evitar conflitos grandes.
+O StockApp foi criado para ser uma ferramenta intuitiva e poderosa, ajudando pequenos comerciantes (como os do ramo de cama, mesa e banho) a gerenciar seu inventário de forma eficiente e sem complicações. O projeto foca na simplicidade de uso e na automação de tarefas, com planos de utilizar QR Codes para agilizar o registro de entradas e saídas de produtos.
 
 ---
-### Para Novas Funcionalidades (usando a branch `dev`)
 
-1.  **Mude para a branch `dev` (Certifique-se de estar na branch certa!!):**
-    ```bash
-    git checkout dev
-    ```
+## ✨ Funcionalidades
 
-2.  **Sincronize com o Repositório (Passo MAIS Importante):**
-    Baixe as alterações mais recentes que seus colegas fizeram para evitar conflitos.
-    ```bash
-    git pull origin dev
-    ```
-    (faça isso antes de começar a trabalhar no código)
+- ✔️ **Gestão de Catálogo:** Cadastro completo de Produtos e Categorias.
+- ✔️ **Controle de Usuários:** Gerenciamento de usuários do sistema.
+- ✔️ **Controle de Estoque:** Visão em tempo real da quantidade de cada produto.
+- ✔️ **Lógica de Negócio:** Atualização automática do estoque a cada nova movimentação.
+- ✔️ **Histórico Completo:** Log detalhado de todas as entradas e saídas.
+- ✔️ **Alertas Inteligentes:** Configuração de estoque mínimo para evitar falta de produtos.
+- 💡 **Planejado para o Futuro:** Geração e leitura de QR Codes para agilizar as operações.
 
-3.  **Faça seu Trabalho:**
-    Crie e edite seu código diretamente na branch `dev`.
-
-4.  **Salve e Envie suas Alterações:**
-    ```bash
-    # Adicione os arquivos que você modificou
-    git add .
-
-    # Crie o commit com uma mensagem clara (ex: "Adiciona tela de login")
-    git commit -m "Descreva a nova funcionalidade"
-
-    # Envie suas alterações para o GitHub
-    git push origin dev
-    ```
 ---
-### Para Correção de Bugs (usando a branch `bugfix`)
 
-O processo é o mesmo, mas usando a branch `bugfix`.
+## 💻 Tecnologias Utilizadas
 
-1.  **Mude para a branch `bugfix`:**
+Este projeto está sendo construído utilizando um ecossistema moderno e robusto:
+
+* **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
+* **Ambiente de Execução:** [Node.js](https://nodejs.org/)
+* **Framework da API:** [Express.js](https://expressjs.com/pt-br/)
+* **Banco de Dados:** [PostgreSQL](https://www.postgresql.org/) (via [Docker](https://www.docker.com/))
+* **ORM:** [Prisma](https://www.prisma.io/)
+* **Documentação da API:** [Swagger](https://swagger.io/)
+
+---
+
+## 🚀 Como Começar (Ambiente de Desenvolvimento)
+
+Siga os passos abaixo para configurar e rodar o projeto localmente.
+
+### Pré-requisitos
+* [Git](https://git-scm.com/)
+* [Node.js (LTS)](https://nodejs.org/)
+* [Docker](https://www.docker.com/products/docker-desktop/)
+
+### Guia de Instalação
+
+1.  **Clone o Repositório**
     ```bash
-    git checkout bugfix
+    git clone [https://github.com/Walisson-Sales/stockapp](https://github.com/Walisson-Sales/stockapp)
+    cd stockapp
     ```
 
-2.  **Sincronize com o Repositório:**
-    ```bash
-    git pull origin bugfix
+2.  **Configure as Variáveis de Ambiente**
+    * Crie um arquivo chamado `.env` na raiz do projeto.
+    * Copie o conteúdo do arquivo `.env.example` (se existir) ou use o modelo abaixo:
+    ```env
+    # .env
+
+    # Configurações para o Prisma se conectar ao banco
+    DATABASE_URL="postgresql://user:mypassword@localhost:5432/stockapp?sslmode=disable"
+
+    # Configurações para o Docker criar o banco
+    POSTGRES_USER=user
+    POSTGRES_PASSWORD=mypassword
+    POSTGRES_DB=stockapp
     ```
 
-3.  **Codifique a Correção.**
-
-4.  **Salve e Envie suas Alterações:**
+3.  **Inicie o Banco de Dados com Docker**
+    Este comando vai criar e iniciar o container do PostgreSQL em segundo plano.
     ```bash
-    git add .
-    git commit -m "fix: Descreve o bug que foi corrigido"
-    git push origin bugfix
+    docker-compose up -d
     ```
-(essa branch bugfix serve para você mandar o código com problema e eu possa ajudar a resolver)
 
-> **Aviso:** Se ao dar `push` você receber um erro, provavelmente significa que alguém enviou código novo enquanto você trabalhava. Você precisará rodar `git pull` novamente, resolver os possíveis conflitos, e então tentar o `push` de novo.
+4.  **Instale as Dependências do Projeto**
+    ```bash
+    npm install
+    ```
+
+5.  **Aplique as Migrações do Banco de Dados**
+    Este comando irá ler o `schema.prisma` e criar todas as tabelas no seu banco de dados Docker.
+    ```bash
+    npx prisma migrate dev
+    ```
+
+6.  **Rode o Projeto**
+    ```bash
+    npm run dev
+    ```
+    * 🚀 Sua API estará rodando em `http://localhost:3000`.
+    * 📚 A documentação do Swagger estará disponível em `http://localhost:3000/api-docs`.
+
+---
+
+## 🤝 Como Contribuir
+
+Este é um projeto de equipe e toda contribuição é bem-vinda! Para garantir que o projeto continue organizado e consistente, por favor, leia nosso **[Guia de Contribuição](CONTRIBUTING.md)** antes de começar.

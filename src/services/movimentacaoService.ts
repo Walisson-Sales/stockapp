@@ -43,7 +43,7 @@ const movimentacaoService = {
                 idUsuario,
                 tipoMovimentacao,
                 quantidade,
-                descricao: tipoMovimentacao === "Entrada" ? "Entrada de produto" : "Saída de produto",
+                descricao: tipoMovimentacao.toLowerCase() === "entrada" ? "Entrada de produto" : "Saída de produto",
             },
         });
 
