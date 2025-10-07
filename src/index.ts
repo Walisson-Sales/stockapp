@@ -1,4 +1,3 @@
-// Nosso arquivo principal:
 import express from "express";
 import { Express } from "express";
 import categoriaRoutes from "./routes/categoriaRoutes";
