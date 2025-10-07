@@ -6,7 +6,7 @@ const usuarioController = {
     async criarUsuario(req: Request, res: Response){
         try{
             const usuario: Usuario = await usuarioService.criarUsuario(req.body);
-        res.status(201).json(usuario);
+            res.status(201).json(usuario);
         } catch(error:any){
             return res.status(500).json({ message: error.message });
         }
@@ -16,7 +16,7 @@ const usuarioController = {
             const usuarios: Usuario[] = await usuarioService.listarTodosUsuarios();
         res.json(usuarios)
         } catch (error: any) {
-        return res.status(500).json({ message: error.message });
+            return res.status(500).json({ message: error.message });
         }
     },
     async pegarUsuarioPorId(req: Request, res: Response){

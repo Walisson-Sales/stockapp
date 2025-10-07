@@ -152,3 +152,5 @@ router.put("/usuarios/:id", usuarioController.atualizarUsuario);
  *         description: Erro interno do servidor
  */
 router.delete("/usuarios/:id", usuarioController.deletarUsuario);
+
+export default router;

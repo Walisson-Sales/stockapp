@@ -2,6 +2,10 @@
 import express from "express";
 import { Express } from "express";
 import categoriaRoutes from "./routes/categoriaRoutes";
+import estoqueRoutes from "./routes/estoqueRoutes";
+import movimentacaoRoutes from "./routes/movimentacaoRoutes";
+import produtosRoutes from "./routes/produtosRoutes";
+import usuarioRoutes from "./routes/usuarioRoutes";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 
@@ -11,6 +15,10 @@ const port: number = 3000;
 app.use(express.json());
 
 app.use(categoriaRoutes);
+app.use("/estoque", estoqueRoutes);
+app.use("/movimentacoes", movimentacaoRoutes);
+app.use(produtosRoutes);
+app.use(usuarioRoutes);
 
 const swaggerOptions = {
     swaggerDefinition: {

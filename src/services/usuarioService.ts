@@ -3,7 +3,12 @@ import { Usuario } from "../generated/prisma";
 
 const usuarioService = {
     async listarTodosUsuarios(): Promise<Usuario[]> {
-        return prisma.usuario.findMany();
+        return prisma.usuario.findMany({
+            include: {
+                movimentacoes: { select: { tipoMovimentacao: true, quantidade: true, dataMovimentacao: true } },
+                produtos: true,
+            }
+        });
     },
 
     async pegarUsuarioPorId(id: number): Promise<Usuario | null> {
