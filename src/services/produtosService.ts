@@ -1,6 +1,5 @@
-import path from "path";
 import prisma from "../database/prisma";
-import { Produto } from "@prisma/client";
+import { Produto } from "../generated/prisma";
 // --- Tipos de Dados para a API ---
 
 // Define o que é necessário para CRIAR um produto.
@@ -17,6 +16,15 @@ export type ProdutoCreateData = {
     quantidadeAtual: number;
     quantidadeMinima: number;
   };
+};
+
+export type Produtomodificate = {
+  nome?: string;
+  cor?: string;
+  tamanho?: string;
+  precoCusto?: number;
+  precoVenda?: number;
+  idCategoria?: number;
 };
 
 // Define o que é permitido para ATUALIZAR um produto.
@@ -95,7 +103,7 @@ export const produtosService = {
   /**
    * Atualiza os dados de um produto existente.
    */
-  async atualizarProduto(id: number, data: ProdutoUpdateData): Promise<Produto> {
+  async atualizarProduto(id: number, data: Produtomodificate): Promise<Produto> {
     // Garante que o produto existe antes de tentar atualizar.
     await this.pegarProdutoPorId(id);
 
@@ -107,7 +115,7 @@ export const produtosService = {
         tamanho: data.tamanho,
         precoCusto: data.precoCusto,
         precoVenda: data.precoVenda,
-        // Se um novo idCategoria for passado no body, ele atualiza a conexão.
+
         ...(data.idCategoria && {
           categoria: {
             connect: { id: data.idCategoria },

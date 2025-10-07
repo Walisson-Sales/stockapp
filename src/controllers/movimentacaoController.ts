@@ -33,6 +33,32 @@ const movimentacaoController = {
             res.status(500).json({ error: "Erro ao listar movimentações." });
         }
     },
+
+    async alterarMovimentacao(req: Request, res: Response) {
+        try {
+            const id = parseInt(req.params.id);
+            const { quantidade } = req.body;
+
+            if (!quantidade) {
+                return res.status(400).json({ message: "Quantidade é um campo obrigatório." });
+            }
+
+            const resultado = await movimentacaoService.alterarMovimentacao(id, { quantidade });
+            res.json(resultado);
+        } catch (error: any) {
+            res.status(400).json({ message: error.message || "Erro ao alterar movimentação." });
+        }
+    },
+
+    async deletarMovimentacao(req: Request, res: Response) {
+        try {
+            const id = parseInt(req.params.id);
+            const resultado = await movimentacaoService.deletarMovimentacao(id);
+            res.json(resultado);
+        } catch (error: any) {
+            res.status(400).json({ message: error.message || "Erro ao deletar movimentação." });
+        }
+    },
 };
 
 export default movimentacaoController;

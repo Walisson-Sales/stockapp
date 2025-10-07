@@ -18,42 +18,58 @@ const router: Router = Router();
  *       type: object
  *       required:
  *         - nome
- *         - descricao
- *         - preco
+ *         - cor
+ *         - tamanho
+ *         - precoCusto
+ *         - precoVenda
+ *         - idCategoria
+ *         - idUsuario
  *         - estoque
- *         - categoria
- *         - usuarioId
  *       properties:
- *         id:
- *           type: integer
- *           description: O ID do produto.
  *         nome:
  *           type: string
- *           description: O nome do produto.
- *         descricao:
+ *           description: Nome do produto.
+ *           example: "Camiseta"
+ *         cor:
  *           type: string
- *           description: A descrição do produto.
- *         preco:
+ *           description: Cor do produto.
+ *           example: "Vermelho"
+ *         tamanho:
+ *           type: string
+ *           description: Tamanho do produto.
+ *           example: "Grande"
+ *         precoCusto:
  *           type: number
- *           description: O preço do produto.
+ *           format: float
+ *           description: Preço de custo do produto.
+ *           example: 30.00
+ *         precoVenda:
+ *           type: number
+ *           format: float
+ *           description: Preço de venda do produto.
+ *           example: 59.99
+ *         idCategoria:
+ *           type: integer
+ *           description: ID da categoria do produto.
+ *           example: 1
+ *         idUsuario:
+ *           type: integer
+ *           description: ID do usuário que cadastrou o produto.
+ *           example: 1
  *         estoque:
- *           type: integer
- *           description: A quantidade em estoque.
- *         categoria:
- *           type: string
- *           description: A categoria do produto.
- *         usuarioId:
- *           type: integer
- *           description: O ID do usuário que cadastrou o produto.
- *       example:
- *         id: 1
- *         nome: "Camiseta"
- *         descricao: "Camiseta de algodão"
- *         preco: 49.99
- *         estoque: 100
- *         categoria: "Vestuário"
- *         usuarioId: 1
+ *           type: object
+ *           description: Informações sobre o estoque do produto.
+ *           properties:
+ *             quantidadeAtual:
+ *               type: integer
+ *               description: Quantidade atual em estoque.
+ *               example: 100
+ *             quantidadeMinima:
+ *               type: integer
+ *               description: Quantidade mínima antes de precisar repor.
+ *               example: 20
  */
+
 
 /**
  * @swagger

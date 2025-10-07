@@ -5,6 +5,13 @@ const router: Router = Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Categorias
+ *   description: Gerenciamento de categorias.
+ */
+
+/**
+ * @swagger
  * /categorias:
  *   post:
  *     summary: Cria uma nova categoria

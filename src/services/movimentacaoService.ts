@@ -56,6 +56,44 @@ const movimentacaoService = {
             orderBy: { dataMovimentacao: "desc" },
         });
     },
+
+    async alterarMovimentacao(id: number, data: { quantidade: number }) {
+        const movimentacao = await prisma.movimentacao.findUnique({ where: { id } });
+        if (!movimentacao) {
+            throw new Error("Movimentação não encontrada.");
+        }
+
+        const { idProduto, tipoMovimentacao, quantidade } = movimentacao;
+        const novaQuantidade = tipoMovimentacao === "Entrada" ? quantidade + data.quantidade : quantidade - data.quantidade;
+
+        // Verifica se a nova quantidade é válida
+        if (novaQuantidade < 0) {
+            throw new Error("Nova quantidade não pode ser negativa.");
+        }
+
+        // Atualiza o estoque
+        await estoqueService.atualizarQuantidade(idProduto, novaQuantidade);
+
+        // Atualiza a movimentação
+        return prisma.movimentacao.update({
+            where: { id },
+            data: { quantidade: novaQuantidade },
+        });
+    },
+    async deletarMovimentacao(id: number) {
+        const movimentacao = await prisma.movimentacao.findUnique({ where: { id } });
+        if (!movimentacao) {
+            throw new Error("Movimentação não encontrada.");
+        }
+
+        const { idProduto, quantidade } = movimentacao;
+
+        // Atualiza o estoque
+        await estoqueService.atualizarQuantidade(idProduto, quantidade);
+
+        // Deleta a movimentação
+        return prisma.movimentacao.delete({ where: { id } });
+    },
 };
 
 export default movimentacaoService;
