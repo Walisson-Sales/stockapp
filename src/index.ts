@@ -15,8 +15,8 @@ const port: number = 3000;
 app.use(express.json());
 
 app.use(categoriaRoutes);
-app.use("/estoque", estoqueRoutes);
-app.use("/movimentacoes", movimentacaoRoutes);
+app.use(estoqueRoutes);
+app.use(movimentacaoRoutes);
 app.use(produtosRoutes);
 app.use(usuarioRoutes);
 

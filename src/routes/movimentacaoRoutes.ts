@@ -5,11 +5,17 @@ const router = Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Movimentações
+ *   description: Gerenciamento de movimentações no estoque.
+ */
+
+/**
+ * @swagger
  * /movimentacoes:
  *   post:
  *     summary: Registrar uma nova movimentação (entrada/saída)
- *     tags:
- *       - Movimentacoes
+ *     tags: [Movimentações]
  *     requestBody:
  *       required: true
  *       content:
@@ -34,15 +40,14 @@ const router = Router();
  *       '500':
  *         description: Erro interno do servidor.
  */
-router.post("/", movimentacaoController.registrarMovimentacao);
+router.post("/movimentacoes", movimentacaoController.registrarMovimentacao);
 
 /**
  * @swagger
  * /movimentacoes:
  *   get:
  *     summary: Listar movimentações
- *     tags:
- *       - Movimentacoes
+ *     tags: [Movimentações]
  *     description: Retorna uma lista de movimentações. Pode filtrar por `produtoId` e `tipo`.
  *     parameters:
  *       - in: query
@@ -80,6 +85,78 @@ router.post("/", movimentacaoController.registrarMovimentacao);
  *       '500':
  *         description: Erro interno do servidor.
  */
-router.get("/", movimentacaoController.listarMovimentacoes);
+router.get("/movimentacoes", movimentacaoController.listarMovimentacoes);
+
+/**
+ * @swagger
+ * /movimentacoes/{id}:
+ *   put:
+ *     summary: Atualiza uma movimentação existente
+ *     tags: [Movimentações]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da movimentação a ser atualizada
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - tipoMovimentacao
+ *               - quantidade
+ *               - idUsuario
+ *               - idProduto
+ *             properties:
+ *               tipoMovimentacao:
+ *                 type: string
+ *                 description: Tipo da movimentação (entrada ou saída)
+ *                 example: "entrada"
+ *               quantidade:
+ *                 type: integer
+ *                 description: Quantidade movimentada
+ *                 example: 10
+ *               idUsuario:
+ *                 type: integer
+ *                 description: ID do usuário responsável
+ *                 example: 2
+ *               idProduto:
+ *                 type: integer
+ *                 description: ID do produto movimentado
+ *                 example: 5
+ *     responses:
+ *       200:
+ *         description: Movimentação atualizada com sucesso
+ *       404:
+ *         description: Movimentação não encontrada
+ *       400:
+ *         description: Erro na validação dos dados enviados
+ */
+router.put("/:id", movimentacaoController.alterarMovimentacao);
+
+/**
+ * @swagger
+ * /movimentacoes/{id}:
+ *   delete:
+ *     summary: Deleta uma movimentação pelo ID
+ *     tags: [Movimentações]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da movimentação a ser deletada
+ *     responses:
+ *       200:
+ *         description: Movimentação deletada com sucesso
+ *       404:
+ *         description: Movimentação não encontrada
+ */
+router.delete("/:id", movimentacaoController.deletarMovimentacao);
 
 export default router;
