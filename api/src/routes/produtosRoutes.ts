@@ -1,5 +1,7 @@
 import { Router } from "express";
 import produtosController from "../controllers/produtosController";
+import { validateBody, validateParams } from '../middlewares/validation';
+import { updateProdutoSchema, idParamSchema, createProdutoSchema } from '../schemas/validation';
 
 const router: Router = Router();
 
@@ -112,7 +114,7 @@ router.get("/produtos", produtosController.listarTodosProdutos);
  *       404:
  *         description: Produto não encontrado
  */
-router.get("/produtos/:id", produtosController.pegarProdutoPorId);
+router.get("/produtos/:id", validateParams(idParamSchema), produtosController.pegarProdutoPorId);
 
 /**
  * @swagger
@@ -136,7 +138,7 @@ router.get("/produtos/:id", produtosController.pegarProdutoPorId);
  *       400:
  *         description: Erro de validação
  */
-router.post("/produtos", produtosController.criarProduto);
+router.post("/produtos", validateBody(createProdutoSchema), produtosController.criarProduto);
 
 /**
  * @swagger
@@ -169,7 +171,7 @@ router.post("/produtos", produtosController.criarProduto);
  *       404:
  *         description: Produto não encontrado
  */
-router.put("/produtos/:id", produtosController.atualizarProduto);
+router.put("/produtos/:id", validateParams(idParamSchema), validateBody(updateProdutoSchema), produtosController.atualizarProduto);
 
 /**
  * @swagger
@@ -190,6 +192,6 @@ router.put("/produtos/:id", produtosController.atualizarProduto);
  *       404:
  *         description: Produto não encontrado
  */
-router.delete("/produtos/:id", produtosController.deletarProduto);
+router.delete("/produtos/:id", validateParams(idParamSchema), produtosController.deletarProduto);
 
 export default router;
