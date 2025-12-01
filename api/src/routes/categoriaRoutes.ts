@@ -1,6 +1,7 @@
 import { Router } from "express";
 import categoriaController from "../controllers/categoriaController";
-
+import { validateBody, validateParams } from '../middlewares/validation';
+import { createCategoriaSchema, updateCategoriaSchema, idParamSchema } from '../schemas/validation';
 const router: Router = Router();
 
 /**
@@ -39,7 +40,7 @@ const router: Router = Router();
  *       '400':
  *         description: Dados de entrada inválidos.
  */
-router.post("/categorias", categoriaController.criarCategoria);
+router.post("/categorias", validateBody(createCategoriaSchema), categoriaController.criarCategoria);
 
 /**
  * @swagger
@@ -79,7 +80,7 @@ router.get("/categorias", categoriaController.listarTodasCategorias);
  *       '404':
  *         description: Categoria não encontrada.
  */
-router.get("/categorias/:id", categoriaController.pegarCategoriaPorId);
+router.get("/categorias/:id", validateParams(idParamSchema), categoriaController.pegarCategoriaPorId);
 
 /**
  * @swagger
@@ -121,7 +122,7 @@ router.get("/categorias/:id", categoriaController.pegarCategoriaPorId);
  *       '404':
  *         description: Categoria não encontrada.
  */
-router.put("/categoria/:id", categoriaController.atualizarCategoria);
+router.put("/categoria/:id", validateParams(idParamSchema), validateBody(updateCategoriaSchema), categoriaController.atualizarCategoria);
 
 /**
  * @swagger
@@ -144,6 +145,6 @@ router.put("/categoria/:id", categoriaController.atualizarCategoria);
  *       '404':
  *         description: Categoria não encontrada.
  */
-router.delete("/categoria/:id", categoriaController.deletarCategoria);
+router.delete("/categoria/:id", validateParams(idParamSchema), categoriaController.deletarCategoria);
 
 export default router;

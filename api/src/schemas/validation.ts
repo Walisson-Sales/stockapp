@@ -49,6 +49,11 @@ export const createCategoriaSchema = z.object({
     .max(50, "O nome da categoria deve ter no máximo 50 caracteres")
     // Nota: Em uma API real, você talvez queira remover espaços em branco extras
     .trim(),
+  descricao: z
+    .string()
+    .max(255, "A descrição da categoria deve ter no máximo 255 caracteres")
+    .trim()
+    .optional(),
 });
 
 export const updateCategoriaSchema = createCategoriaSchema.partial();
@@ -63,36 +68,70 @@ export const createProdutoSchema = z.object({
     .min(2, "Nome do produto deve ter pelo menos 2 caracteres")
     .max(150, "Nome do produto muito longo")
     .trim(),
-  descricao: z
+  cor: z
     .string()
-    .max(500, "A descrição não pode passar de 500 caracteres")
-    .optional(),
-  // Usamos number() estrito aqui. Se seu front-end envia strings que parecem números,
-  // você pode precisar usar z.coerce.number() em vez disso.
+    .min(1, "Cor deve ter pelo menos 1 caractere") // Ajustei para 1 pois cores podem ser curtas
+    .max(50, "Nome da cor muito longo")
+    .trim(),
+  tamanho: z
+    .string()
+    .min(1, "Tamanho deve ter pelo menos 1 caractere")
+    .max(20, "Tamanho muito longo")
+    .trim(),
   precoCusto: z
-    .number({ message: "Preço de custo deve ser um número" })
+    .number({ message: "Preço de custo deve ser um número válido" })
     .positive("O preço de custo deve ser maior que zero"),
   precoVenda: z
-    .number({ message: "Preço de venda deve ser um número" })
+    .number({ message: "Preço de venda deve ser um número válido" })
     .positive("O preço de venda deve ser maior que zero"),
-  quantidade: z
-    .number({ message: "A quantidade deve ser um número" })
-    .int("A quantidade deve ser um número inteiro")
-    .nonnegative("A quantidade não pode ser negativa"), // Permite 0
-  // Validação de chaves estrangeiras (Foreign Keys)
-  categoriaId: z
-    .number({ message: "ID da categoria inválido" })
+  idCategoria: z
+    .number({ message: "ID da categoria é obrigatório e deve ser um número" })
     .int()
     .positive("O ID da categoria deve ser positivo"),
-  // Opcional: se o produto precisa estar atrelado a quem criou
-  usuarioId: z
-    .number({ message: "ID do usuário inválido" })
+  idUsuario: z
+    .number({ message: "ID do usuário é obrigatório e deve ser um número" })
     .int()
-    .positive()
-    .optional(),
+    .positive(),
+  estoque: z.object({
+    quantidadeAtual: z
+      .number({ message: "Quantidade atual deve ser um número válido" })
+      .int("A quantidade deve ser um número inteiro")
+      .nonnegative("A quantidade não pode ser negativa"), // Permite 0
+    quantidadeMinima: z
+      .number({ message: "Quantidade mínima deve ser um número válido" })
+      .int("A quantidade mínima deve ser um número inteiro")
+      .nonnegative("A quantidade mínima não pode ser negativa"),
+  }),
 });
 
 export const updateProdutoSchema = createProdutoSchema.partial();
+
+// =========================================
+//  Schema para movimentações
+// =========================================
+export const createMovimentacaoSchema = z.object({
+  idProduto: z
+    .number({ message: "ID do produto é obrigatório e deve ser um número" })
+    .int()
+    .positive("O ID do produto deve ser positivo"),
+  tipoMovimentacao: z
+    .enum(["entrada", "saida"], { message: "Tipo de movimentação deve ser 'entrada' ou 'saida'" }),
+  quantidade: z
+    .number({ message: "Quantidade deve ser um número válido" })
+    .int("A quantidade deve ser um número inteiro")
+    .positive("A quantidade deve ser maior que zero"),
+  idUsuario: z
+    .number({ message: "ID do usuário é obrigatório e deve ser um número" })
+    .int()
+    .positive("O ID do usuário deve ser positivo"),
+  descricao: z
+    .string()
+    .max(255, "A descrição deve ter no máximo 255 caracteres")
+    .trim()
+    .optional(),
+});
+
+export const updateMovimentacaoSchema = createMovimentacaoSchema.partial();
 
 // =========================================
 // Schema Utilitário para validação de IDs na URL

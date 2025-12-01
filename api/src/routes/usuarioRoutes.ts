@@ -1,5 +1,7 @@
 import { Router } from "express";
 import usuarioController from "../controllers/usuarioController";
+import { validateBody, validateParams } from '../middlewares/validation';
+import { createUsuarioSchema, updateUsuarioSchema, loginUsuarioSchema, idParamSchema } from '../schemas/validation';
 
 const router: Router = Router();
 
@@ -44,7 +46,7 @@ router.get("/usuarios", usuarioController.listarTodosUsuarios);
  *       500:
  *         description: Erro interno do servidor
  */
-router.get("/usuarios/:id", usuarioController.pegarUsuarioPorId);
+router.get("/usuarios/:id", validateParams(idParamSchema), usuarioController.pegarUsuarioPorId);
 
 /**
  * @swagger
@@ -86,7 +88,7 @@ router.get("/usuarios/:id", usuarioController.pegarUsuarioPorId);
  *       500:
  *         description: Erro interno do servidor
  */
-router.post("/usuarios", usuarioController.criarUsuario);
+router.post("/usuarios", validateBody(createUsuarioSchema), usuarioController.criarUsuario);
 
 /**
  * @swagger
@@ -129,7 +131,7 @@ router.post("/usuarios", usuarioController.criarUsuario);
  *       500:
  *         description: Erro interno do servidor
  */
-router.put("/usuarios/:id", usuarioController.atualizarUsuario);
+router.put("/usuarios/:id", validateParams(idParamSchema), validateBody(updateUsuarioSchema), usuarioController.atualizarUsuario);
 
 /**
  * @swagger
@@ -151,6 +153,6 @@ router.put("/usuarios/:id", usuarioController.atualizarUsuario);
  *       500:
  *         description: Erro interno do servidor
  */
-router.delete("/usuarios/:id", usuarioController.deletarUsuario);
+router.delete("/usuarios/:id", validateParams(idParamSchema), usuarioController.deletarUsuario);
 
 export default router;

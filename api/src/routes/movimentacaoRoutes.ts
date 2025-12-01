@@ -1,5 +1,7 @@
 import { Router } from "express";
 import movimentacaoController from "../controllers/movimentacaoController";
+import { validateBody, validateParams } from '../middlewares/validation';
+import { createMovimentacaoSchema, updateMovimentacaoSchema, idParamSchema} from '../schemas/validation';
 
 const router = Router();
 
@@ -40,7 +42,7 @@ const router = Router();
  *       '500':
  *         description: Erro interno do servidor.
  */
-router.post("/movimentacoes", movimentacaoController.registrarMovimentacao);
+router.post("/movimentacoes", validateBody(createMovimentacaoSchema), movimentacaoController.registrarMovimentacao);
 
 /**
  * @swagger
@@ -136,7 +138,7 @@ router.get("/movimentacoes", movimentacaoController.listarMovimentacoes);
  *       400:
  *         description: Erro na validação dos dados enviados
  */
-router.put("/:id", movimentacaoController.alterarMovimentacao);
+router.put("/:id", validateParams(idParamSchema), validateBody(updateMovimentacaoSchema), movimentacaoController.alterarMovimentacao);
 
 /**
  * @swagger
@@ -157,6 +159,6 @@ router.put("/:id", movimentacaoController.alterarMovimentacao);
  *       404:
  *         description: Movimentação não encontrada
  */
-router.delete("/:id", movimentacaoController.deletarMovimentacao);
+router.delete("/:id", validateParams(idParamSchema), movimentacaoController.deletarMovimentacao);
 
 export default router;
