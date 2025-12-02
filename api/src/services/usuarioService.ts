@@ -1,5 +1,6 @@
 import prisma from "../database/prisma";
 import { Usuario } from "../generated/prisma";
+import bcrypt from 'bcryptjs';
 
 const usuarioService = {
     async listarTodosUsuarios(): Promise<Usuario[]> {
@@ -16,10 +17,18 @@ const usuarioService = {
     },
 
     async criarUsuario(data: { nome: string; email: string; senha: string; nomeEmpresa: string; tipoComercio: string; cpfCnpj: string }): Promise<Usuario> {
-        const novoUsuario: Usuario = await prisma.usuario.create({
-            data,
+        // 1. Gerar o "salt" e fazer o hash da senha
+        const salt = await bcrypt.genSalt(10);
+        const senhaHasheada = await bcrypt.hash(data.senha, salt);
+
+        // 2. Criar o usuário usando a senha hasheada
+        const usuario = await prisma.usuario.create({
+        data: {
+            ...data,
+            senha: senhaHasheada, // Substitui a senha em texto puro pelo hash
+        },
         });
-        return novoUsuario;
+        return usuario;
     },
 
     async atualizarUsuario(id: number, data: { nome?: string; email?: string; senha?: string; nomeEmpresa?: string; tipoComercio?: string; cpfCnpj?: string }): Promise<Usuario> {

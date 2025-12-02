@@ -2,6 +2,7 @@ import { Router } from "express";
 import produtosController from "../controllers/produtosController";
 import { validateBody, validateParams } from '../middlewares/validation';
 import { updateProdutoSchema, idParamSchema, createProdutoSchema } from '../schemas/validation';
+import { authenticate } from '../middlewares/auth';
 
 const router: Router = Router();
 
@@ -89,7 +90,7 @@ const router: Router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Produto'
  */
-router.get("/produtos", produtosController.listarTodosProdutos);
+router.get("/produtos", authenticate, produtosController.listarTodosProdutos);
 
 /**
  * @swagger
@@ -114,7 +115,7 @@ router.get("/produtos", produtosController.listarTodosProdutos);
  *       404:
  *         description: Produto não encontrado
  */
-router.get("/produtos/:id", validateParams(idParamSchema), produtosController.pegarProdutoPorId);
+router.get("/produtos/:id", authenticate, validateParams(idParamSchema), produtosController.pegarProdutoPorId);
 
 /**
  * @swagger
@@ -138,7 +139,7 @@ router.get("/produtos/:id", validateParams(idParamSchema), produtosController.pe
  *       400:
  *         description: Erro de validação
  */
-router.post("/produtos", validateBody(createProdutoSchema), produtosController.criarProduto);
+router.post("/produtos", authenticate, validateBody(createProdutoSchema), produtosController.criarProduto);
 
 /**
  * @swagger
@@ -171,7 +172,7 @@ router.post("/produtos", validateBody(createProdutoSchema), produtosController.c
  *       404:
  *         description: Produto não encontrado
  */
-router.put("/produtos/:id", validateParams(idParamSchema), validateBody(updateProdutoSchema), produtosController.atualizarProduto);
+router.put("/produtos/:id", authenticate, validateParams(idParamSchema), validateBody(updateProdutoSchema), produtosController.atualizarProduto);
 
 /**
  * @swagger
@@ -192,6 +193,6 @@ router.put("/produtos/:id", validateParams(idParamSchema), validateBody(updatePr
  *       404:
  *         description: Produto não encontrado
  */
-router.delete("/produtos/:id", validateParams(idParamSchema), produtosController.deletarProduto);
+router.delete("/produtos/:id", authenticate, validateParams(idParamSchema), produtosController.deletarProduto);
 
 export default router;
