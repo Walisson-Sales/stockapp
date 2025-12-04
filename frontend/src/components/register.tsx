@@ -22,7 +22,7 @@ const Register: React.FC<{ onRegistered?: () => void }> = ({
     e.preventDefault();
     setMessage(null);
     try {
-      const res = await fetch("http://localhost:3000/usuarios", {
+      const res = await fetch(import.meta.env.VITE_API_URL + "/usuarios", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
