@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import api from "../api"; // Importe a instância do Axios
 
 /*
   Componente de Login (simples).
-  - Envia POST /login com { email, senha }
-  - Recebe usuário (sem senha) e salva em localStorage como 'user'
+  - Envia POST /auth/login com { email, senha }
+  - Recebe usuário (sem senha) e token, salva em localStorage
   - Chama onLogin(user) para que App mude a view
 */
 type Props = { onLogin: (user: any) => void };
@@ -17,22 +18,24 @@ const Login: React.FC<Props> = ({ onLogin }) => {
     e.preventDefault();
     setError(null);
     try {
-      const res = await fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, senha }),
-      });
-      const payload = await res.json();
-      if (!res.ok) {
-        // mostra mensagem retornada pelo backend ou genérica
-        setError(payload?.message || "Erro no login");
-        return;
+      // Use a instância do Axios para fazer a requisição
+      const response = await api.post("/auth/login", { email, senha });
+      
+      const payload = response.data;
+
+      // Salva o token no localStorage (importante para autenticação)
+      if (payload.token) {
+        localStorage.setItem("token", payload.token);
       }
-      // salva usuário no localStorage (sem senha)
-      localStorage.setItem("user", JSON.stringify(payload));
-      onLogin(payload);
+
+      // Salva usuário no localStorage (sem senha)
+      localStorage.setItem("user", JSON.stringify(payload.usuario));
+      
+      onLogin(payload.usuario);
     } catch (err: any) {
-      setError(err.message || "Erro de rede");
+      console.error(err); // Log do erro completo para debug
+      const message = err.response?.data?.message || "Erro no login";
+      setError(message);
     }
   };
 
@@ -52,9 +55,9 @@ const Login: React.FC<Props> = ({ onLogin }) => {
           onChange={(e) => setSenha(e.target.value)}
         />
       </div>
-      <button type="submit" style={{ color: "white" }}>Entrar</button>
+      <button type="submit" style={{ color: "white", backgroundColor: "blue" }}>Entrar</button>
     </form>
   );
 };
 
-export default Login;
+export default Login; 

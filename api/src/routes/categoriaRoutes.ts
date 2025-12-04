@@ -151,6 +151,6 @@ router.put("/categoria/:id", validateParams(idParamSchema), validateBody(updateC
  *         description: Categoria não encontrada.
  */
 router.delete("/categoria/:id", validateParams(idParamSchema), categoriaController.deletarCategoria);
-// ADICIONAR O authenticate DEPOIS
+// ADICIONAR O authenticate DEPOIS  
 
 export default router;

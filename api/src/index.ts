@@ -9,12 +9,20 @@ import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import authRoutes from './routes/authRoutes';
 import dotenv from "dotenv";
+import cors from "cors";
+
+//Configuração do cors:
+const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173';
 
 dotenv.config();
 const app: Express = express();
 const port: number = Number(process.env.PORT) || 3000;
 
 app.use(express.json());
+app.use(cors({
+  origin: CORS_ORIGIN,
+  credentials: true,
+}));
 
 app.use(usuarioRoutes);
 app.use(categoriaRoutes);
