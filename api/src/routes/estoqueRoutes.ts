@@ -44,6 +44,7 @@ const router = Router();
  *       500:
  *         description: Erro interno ao buscar o estoque
  */
-router.get("/estoque", authenticate, estoqueController.listarEstoque);
+router.get("/estoque", estoqueController.listarEstoque);
+// ADICIONAR O authenticate aqui depois!!
 
 export default router;

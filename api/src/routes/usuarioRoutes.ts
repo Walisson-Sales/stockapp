@@ -25,8 +25,8 @@ const router: Router = Router();
  *       500:
  *         description: Erro interno do servidor
  */
-router.get("/usuarios", authenticate, usuarioController.listarTodosUsuarios);
-
+router.get("/usuarios", usuarioController.listarTodosUsuarios);
+// ADICIONAR O authenticate aqui depois!!
 /**
  * @swagger
  * /usuarios/{id}:
@@ -47,7 +47,8 @@ router.get("/usuarios", authenticate, usuarioController.listarTodosUsuarios);
  *       500:
  *         description: Erro interno do servidor
  */
-router.get("/usuarios/:id", authenticate, validateParams(idParamSchema), usuarioController.pegarUsuarioPorId);
+router.get("/usuarios/:id", validateParams(idParamSchema), usuarioController.pegarUsuarioPorId);
+// ADICIONAR O authenticate aqui depois!!
 
 /**
  * @swagger
@@ -132,7 +133,8 @@ router.post("/usuarios", validateBody(createUsuarioSchema), usuarioController.cr
  *       500:
  *         description: Erro interno do servidor
  */
-router.put("/usuarios/:id", authenticate, validateParams(idParamSchema), validateBody(updateUsuarioSchema), usuarioController.atualizarUsuario);
+router.put("/usuarios/:id", validateParams(idParamSchema), validateBody(updateUsuarioSchema), usuarioController.atualizarUsuario);
+// ADICIONAR O authenticate aqui depois!!
 
 /**
  * @swagger
@@ -154,6 +156,7 @@ router.put("/usuarios/:id", authenticate, validateParams(idParamSchema), validat
  *       500:
  *         description: Erro interno do servidor
  */
-router.delete("/usuarios/:id", authenticate, validateParams(idParamSchema), usuarioController.deletarUsuario);
+router.delete("/usuarios/:id", validateParams(idParamSchema), usuarioController.deletarUsuario);
+// ADICIONAR O authenticate aqui depois!!
 
 export default router;
