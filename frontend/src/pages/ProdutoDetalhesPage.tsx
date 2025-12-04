@@ -20,7 +20,7 @@ export const ProdutoDetalhesPage = () => {
 
   if (!produto) return <Typography>Carregando...</Typography>;
 
-  // Componente auxiliar para exibir linha de informação
+  // componente auxiliar para exibir linha de informação
   const InfoRow = ({ label, value }: { label: string, value: string | number }) => (
     <Box sx={{ flex: 1, minWidth: '200px', mb: 2 }}>
       <Typography variant="subtitle2" color="textSecondary">{label}</Typography>
@@ -45,12 +45,10 @@ export const ProdutoDetalhesPage = () => {
         
         <Divider sx={{ mb: 3 }} />
 
-        {/* Layout usando Box Flex e Wrap para responsividade */}
         <Box display="flex" flexWrap="wrap" gap={2}>
           <InfoRow label="Preço de Venda" value={`R$ ${Number(produto.precoVenda).toFixed(2)}`} />
           <InfoRow label="Preço de Custo" value={`R$ ${Number(produto.precoCusto).toFixed(2)}`} />
           
-          {/* Força quebra de linha visual se necessário, ou deixa fluir */}
           <Box width="100%" height={0} /> 
 
           <InfoRow label="Categoria" value={produto.categoria?.nome || "Sem Categoria"} />

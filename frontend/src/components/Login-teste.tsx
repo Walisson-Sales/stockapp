@@ -1,8 +1,12 @@
 import { Box, Paper, Typography, TextField, Button } from "@mui/material";
 import { Login as LoginIcon } from "@mui/icons-material";
-import type React from "react"
+import type React from "react";
 
-const Login: React.FC = () => {
+type LoginProps = {
+    onLogin: () => void;
+};
+
+const Login: React.FC<LoginProps> = ({ onLogin }) => {
     return (
         <Box>
             <Paper>
@@ -12,13 +16,16 @@ const Login: React.FC = () => {
                     <Typography variant="h3">Faça login para continuar</Typography>
                 </Box>
                 <Box>
-                    <TextField label = "E-mail"/>
-                    <TextField label = "Senha"/>
-                    <Button>Logar</Button>
+                    <TextField label="E-mail" />
+                    <TextField label="Senha" type="password" />
+
+                    <Button onClick={onLogin} variant="contained">
+                        Logar
+                    </Button>
                 </Box>
             </Paper>
         </Box>
     );
-}
+};
 
 export default Login;

@@ -17,8 +17,6 @@ const ProductDetails: React.FC = () => {
   const { id, nome } = useParams(); // Pega o ID da URL (ex: /produto/1)
   const navigate = useNavigate();
 
-  // Simulação de busca de dados (depois substituiremos pela chamada à API)
-  // Aqui estamos fingindo que buscamos o produto com o ID tal
   const product: Product = {
     id: Number(id),
     nome: String(nome),

@@ -3,16 +3,15 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { CssBaseline } from '@mui/material'
-import { ThemeProvider } from '@emotion/react'
-import { createTheme } from '@mui/material/styles'
-import Dashboard from "./components/Dashboard.tsx";
-const theme = createTheme();
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+
+const theme = createTheme()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
-      <CssBaseline></CssBaseline>
-      <Dashboard />
+      <CssBaseline />
+      <App />
     </ThemeProvider>
-  </StrictMode>,
+  </StrictMode>
 )

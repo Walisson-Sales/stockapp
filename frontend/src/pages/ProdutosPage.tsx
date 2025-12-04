@@ -5,6 +5,7 @@ import { type Produto } from "../types/produto";
 import { getProdutos, deleteProduto } from "../services/produtoService";
 import ProdutosTable from "../components/produtos/ProdutosTable";
 import { ProdutoFormModal } from "../components/produtos/ProdutoFormModal"; 
+import { useNotification } from "../contexts/NotificationContext";
 
 export const ProdutosPage = () => {
   const [produtos, setProdutos] = useState<Produto[]>([]);
@@ -12,6 +13,7 @@ export const ProdutosPage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [editingProduto, setEditingProduto] = useState<Produto | null>(null);
+  const { showNotification } = useNotification();
 
   useEffect(() => { carregarProdutos(); }, []);
 
@@ -39,9 +41,16 @@ export const ProdutosPage = () => {
     setDeletingId(id);
     try {
       await deleteProduto(id);
+      showNotification("Produto excluído!", "success");
+      
       setProdutos(prev => prev.filter(p => p.id !== id));
-    } catch (error) { alert("Erro ao deletar"); } 
-    finally { setDeletingId(null); }
+      
+    } catch (error: any) {
+       const msg = error.response?.data?.message || "Erro ao excluir produto.";
+       showNotification(msg, "error");
+    } finally { 
+      setDeletingId(null); 
+    }
   };
 
   const filtered = produtos.filter(p => p.nome.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -66,14 +75,14 @@ export const ProdutosPage = () => {
           produtos={filtered} 
           deletingId={deletingId}
           onDelete={handleDelete}
-          onEdit={handleOpenEdit} // passa a função
+          onEdit={handleOpenEdit}
         />
 
         <ProdutoFormModal 
           open={openModal} 
           onClose={() => setOpenModal(false)}
           onSuccess={carregarProdutos}
-          produtoParaEditar={editingProduto} // passa o produto (ou null)
+          produtoParaEditar={editingProduto}
         />
       </Paper>
     </Box>
