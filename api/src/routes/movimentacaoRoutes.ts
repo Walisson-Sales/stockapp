@@ -44,7 +44,7 @@ const router = Router();
  *         description: Erro interno do servidor.
  */
 router.post("/movimentacoes", validateBody(createMovimentacaoSchema), movimentacaoController.registrarMovimentacao);
-// ADICIONAR O authenticate aqui depois!!
+// ADICIONAR O authenticate DEPOIS
 
 /**
  * @swagger
@@ -90,7 +90,7 @@ router.post("/movimentacoes", validateBody(createMovimentacaoSchema), movimentac
  *         description: Erro interno do servidor.
  */
 router.get("/movimentacoes", movimentacaoController.listarMovimentacoes);
-// ADICIONAR O authenticate aqui depois!!
+// ADICIONAR O authenticate DEPOIS
 
 /**
  * @swagger
@@ -142,7 +142,7 @@ router.get("/movimentacoes", movimentacaoController.listarMovimentacoes);
  *         description: Erro na validação dos dados enviados
  */
 router.put("/:id", validateParams(idParamSchema), validateBody(updateMovimentacaoSchema), movimentacaoController.alterarMovimentacao);
-// ADICIONAR O authenticate aqui depois!!
+// ADICIONAR O authenticate DEPOIS
 
 /**
  * @swagger
@@ -164,6 +164,6 @@ router.put("/:id", validateParams(idParamSchema), validateBody(updateMovimentaca
  *         description: Movimentação não encontrada
  */
 router.delete("/:id", validateParams(idParamSchema), movimentacaoController.deletarMovimentacao);
-// ADICIONAR O authenticate aqui depois!!
+// ADICIONAR O authenticate DEPOIS
 
 export default router;

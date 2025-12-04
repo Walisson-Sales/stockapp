@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
@@ -13,15 +13,15 @@ import { CategoriasPage } from "./pages/CategoriasPage";
 import MovementsLog from "./pages/MovementsLog";
 
 function App() {
-  const [user, setUser] = useState<any>(null);
-
-  // tenta recuperar usuário do localStorage ao iniciar
-  useEffect(() => {
-    const stored = localStorage.getItem("user");
-    if (stored) {
-      setUser(JSON.parse(stored));
+  // inicializa o estado do usuário a partir do localStorage
+  const [user, setUser] = useState<any>(() => {
+    try {
+      const stored = localStorage.getItem("user");
+      return stored ? JSON.parse(stored) : null;
+    } catch (e) {
+      return null;
     }
-  }, []);
+  });
 
   // handlers para login/logout vindos dos componentes
   const handleLogin = (u: any) => {

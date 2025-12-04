@@ -42,7 +42,7 @@ const router: Router = Router();
  *         description: Dados de entrada inválidos.
  */
 router.post("/categorias", validateBody(createCategoriaSchema), categoriaController.criarCategoria);
-// ADICIONAR O authenticate aqui depois!!
+// ADICIONAR O authenticate DEPOIS
 
 /**
  * @swagger
@@ -58,7 +58,7 @@ router.post("/categorias", validateBody(createCategoriaSchema), categoriaControl
  *         description: Erro interno do servidor.
  */
 router.get("/categorias", categoriaController.listarTodasCategorias);
-// ADICIONAR O authenticate aqui depois!!
+// ADICIONAR O authenticate DEPOIS
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.get("/categorias", categoriaController.listarTodasCategorias);
  *         description: Categoria não encontrada.
  */
 router.get("/categorias/:id", validateParams(idParamSchema), categoriaController.pegarCategoriaPorId);
-// ADICIONAR O authenticate aqui depois!!
+// ADICIONAR O authenticate DEPOIS
 
 /**
  * @swagger
@@ -126,7 +126,8 @@ router.get("/categorias/:id", validateParams(idParamSchema), categoriaController
  *       '404':
  *         description: Categoria não encontrada.
  */
-router.put("/categorias/:id", validateParams(idParamSchema), validateBody(updateCategoriaSchema), categoriaController.atualizarCategoria);
+router.put("/categoria/:id", validateParams(idParamSchema), validateBody(updateCategoriaSchema), categoriaController.atualizarCategoria);
+// ADICIONAR O authenticate DEPOIS
 
 /**
  * @swagger
@@ -149,6 +150,7 @@ router.put("/categorias/:id", validateParams(idParamSchema), validateBody(update
  *       '404':
  *         description: Categoria não encontrada.
  */
-router.delete("/categorias/:id", validateParams(idParamSchema), categoriaController.deletarCategoria);
+router.delete("/categoria/:id", validateParams(idParamSchema), categoriaController.deletarCategoria);
+// ADICIONAR O authenticate DEPOIS
 
 export default router;
