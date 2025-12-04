@@ -12,10 +12,10 @@ export const createCategoria = async (data: CategoriaCreateData): Promise<Catego
 };
 
 export const updateCategoria = async (id: number, data: CategoriaCreateData): Promise<Categoria> => {
-  const response = await api.put(`/categorias/${id}`, data);
+  const response = await api.put(`/categoria/${id}`, data);
   return response.data;
 };
 
 export const deleteCategoria = async (id: number): Promise<void> => {
-  await api.delete(`/categorias/${id}`);
+  await api.delete(`/categoria/${id}`);
 };

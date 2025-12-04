@@ -1,8 +1,12 @@
 import { Router } from "express";
 import usuarioController from "../controllers/usuarioController";
-import { validateBody, validateParams } from '../middlewares/validation';
-import { createUsuarioSchema, updateUsuarioSchema, idParamSchema } from '../schemas/validation';
-import { authenticate } from '../middlewares/auth';
+import { validateBody, validateParams } from "../middlewares/validation";
+import {
+  createUsuarioSchema,
+  updateUsuarioSchema,
+  idParamSchema,
+} from "../schemas/validation";
+import { authenticate } from "../middlewares/auth";
 
 const router: Router = Router();
 
@@ -90,7 +94,11 @@ router.get("/usuarios/:id", validateParams(idParamSchema), usuarioController.peg
  *       500:
  *         description: Erro interno do servidor
  */
-router.post("/usuarios", validateBody(createUsuarioSchema), usuarioController.criarUsuario);
+router.post(
+  "/usuarios",
+  validateBody(createUsuarioSchema),
+  usuarioController.criarUsuario
+);
 
 /**
  * @swagger

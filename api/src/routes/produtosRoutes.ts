@@ -91,7 +91,7 @@ const router: Router = Router();
  *                 $ref: '#/components/schemas/Produto'
  */
 router.get("/produtos", produtosController.listarTodosProdutos);
-// ADICIONAR O authenticate aqui depois!!
+// ADICIONAR O authenticate DEPOIS
 
 /**
  * @swagger
@@ -117,7 +117,7 @@ router.get("/produtos", produtosController.listarTodosProdutos);
  *         description: Produto não encontrado
  */
 router.get("/produtos/:id", validateParams(idParamSchema), produtosController.pegarProdutoPorId);
-// ADICIONAR O authenticate aqui depois!!
+// ADICIONAR O authenticate DEPOIS
 
 /**
  * @swagger
@@ -142,7 +142,7 @@ router.get("/produtos/:id", validateParams(idParamSchema), produtosController.pe
  *         description: Erro de validação
  */
 router.post("/produtos", validateBody(createProdutoSchema), produtosController.criarProduto);
-// ADICIONAR O authenticate aqui depois!!
+// ADICIONAR O authenticate DEPOIS
 
 /**
  * @swagger
@@ -176,7 +176,7 @@ router.post("/produtos", validateBody(createProdutoSchema), produtosController.c
  *         description: Produto não encontrado
  */
 router.put("/produtos/:id", validateParams(idParamSchema), validateBody(updateProdutoSchema), produtosController.atualizarProduto);
-// ADICIONAR O authenticate aqui depois!!
+// ADICIONAR O authenticate DEPOIS
 
 /**
  * @swagger
@@ -198,6 +198,6 @@ router.put("/produtos/:id", validateParams(idParamSchema), validateBody(updatePr
  *         description: Produto não encontrado
  */
 router.delete("/produtos/:id", validateParams(idParamSchema), produtosController.deletarProduto);
-// ADICIONAR O authenticate aqui depois!!
+// ADICIONAR O authenticate DEPOIS
 
 export default router;
