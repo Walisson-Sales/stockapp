@@ -14,10 +14,11 @@ const authController = {
       }
 
       // Chama o serviço de autenticação para realizar o login
-      const resultado = await authService.login(email, senha);
+      // const resultado = await authService.login(email, senha);
 
       // Se tudo der certo, retorna status 200 (OK) com o token e dados do usuário
-      return res.status(200).json(resultado);
+      // return res.status(200).json(resultado);
+      console.log("Login chamado com:", email, senha);
 
     } catch (error: any) {
       // Se o serviço lançar um erro (ex: "Credenciais inválidas")
