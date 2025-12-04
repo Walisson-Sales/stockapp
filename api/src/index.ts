@@ -1,6 +1,6 @@
 import express from "express";
 import { Express } from "express";
-import cors from 'cors';
+// import cors from 'cors';
 import categoriaRoutes from "./routes/categoriaRoutes";
 import estoqueRoutes from "./routes/estoqueRoutes";
 import movimentacaoRoutes from "./routes/movimentacaoRoutes";
@@ -15,7 +15,7 @@ dotenv.config();
 const app: Express = express();
 const port: number = Number(process.env.PORT) || 3000;
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 app.use(usuarioRoutes);
