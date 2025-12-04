@@ -31,7 +31,7 @@ const ProdutosTable: React.FC<ProdutosTableProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const colunas = ["Nome", "Categoria", "Preço Venda", "Estoque", "Status", "Ações"];
+  const colunas = ["ID", "Nome", "Categoria", "Preço Custo", "Preço Venda", "Estoque", "Status", "Ações"];
 
   return (
     <TableContainer sx={{ mt: 4, borderRadius: 2, boxShadow: 1 }}>
@@ -55,8 +55,10 @@ const ProdutosTable: React.FC<ProdutosTableProps> = ({
           ) : (
             produtos.map((produto) => (
               <TableRow key={produto.id} hover>
+                <TableCell align="center">{produto.id}</TableCell>
                 <TableCell align="center">{produto.nome}</TableCell>
                 <TableCell align="center">{produto.categoria?.nome || "-"}</TableCell>
+                <TableCell align="center">R$ {Number(produto.precoCusto).toFixed(2)}</TableCell>
                 <TableCell align="center">R$ {Number(produto.precoVenda).toFixed(2)}</TableCell>
                 <TableCell align="center">{produto.estoque?.quantidadeAtual || 0}</TableCell>
                 <TableCell align="center">

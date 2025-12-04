@@ -1,4 +1,4 @@
-import api from "../api";
+import { api } from "../config/api";
 import { type Categoria, type CategoriaCreateData } from "../types/categoria";
 
 export const getCategorias = async (): Promise<Categoria[]> => {

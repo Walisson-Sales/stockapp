@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Box } from "@mui/material";
 import { type Categoria, type CategoriaCreateData } from "../../types/categoria";
 import { createCategoria, updateCategoria } from "../../services/categoriaService";
+import { useNotification } from "../../contexts/NotificationContext";
 
 interface CategoriaModalProps {
   open: boolean;

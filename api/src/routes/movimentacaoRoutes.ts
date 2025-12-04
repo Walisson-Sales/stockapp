@@ -43,7 +43,8 @@ const router = Router();
  *       '500':
  *         description: Erro interno do servidor.
  */
-router.post("/movimentacoes", authenticate, validateBody(createMovimentacaoSchema), movimentacaoController.registrarMovimentacao);
+router.post("/movimentacoes", validateBody(createMovimentacaoSchema), movimentacaoController.registrarMovimentacao);
+// ADICIONAR O authenticate aqui depois!!
 
 /**
  * @swagger
@@ -88,7 +89,8 @@ router.post("/movimentacoes", authenticate, validateBody(createMovimentacaoSchem
  *       '500':
  *         description: Erro interno do servidor.
  */
-router.get("/movimentacoes", authenticate, movimentacaoController.listarMovimentacoes);
+router.get("/movimentacoes", movimentacaoController.listarMovimentacoes);
+// ADICIONAR O authenticate aqui depois!!
 
 /**
  * @swagger
@@ -139,7 +141,8 @@ router.get("/movimentacoes", authenticate, movimentacaoController.listarMoviment
  *       400:
  *         description: Erro na validação dos dados enviados
  */
-router.put("/:id", authenticate, validateParams(idParamSchema), validateBody(updateMovimentacaoSchema), movimentacaoController.alterarMovimentacao);
+router.put("/:id", validateParams(idParamSchema), validateBody(updateMovimentacaoSchema), movimentacaoController.alterarMovimentacao);
+// ADICIONAR O authenticate aqui depois!!
 
 /**
  * @swagger
@@ -160,6 +163,7 @@ router.put("/:id", authenticate, validateParams(idParamSchema), validateBody(upd
  *       404:
  *         description: Movimentação não encontrada
  */
-router.delete("/:id", authenticate, validateParams(idParamSchema), movimentacaoController.deletarMovimentacao);
+router.delete("/:id", validateParams(idParamSchema), movimentacaoController.deletarMovimentacao);
+// ADICIONAR O authenticate aqui depois!!
 
 export default router;

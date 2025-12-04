@@ -90,7 +90,8 @@ const router: Router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Produto'
  */
-router.get("/produtos", authenticate, produtosController.listarTodosProdutos);
+router.get("/produtos", produtosController.listarTodosProdutos);
+// ADICIONAR O authenticate aqui depois!!
 
 /**
  * @swagger
@@ -115,7 +116,8 @@ router.get("/produtos", authenticate, produtosController.listarTodosProdutos);
  *       404:
  *         description: Produto não encontrado
  */
-router.get("/produtos/:id", authenticate, validateParams(idParamSchema), produtosController.pegarProdutoPorId);
+router.get("/produtos/:id", validateParams(idParamSchema), produtosController.pegarProdutoPorId);
+// ADICIONAR O authenticate aqui depois!!
 
 /**
  * @swagger
@@ -139,7 +141,8 @@ router.get("/produtos/:id", authenticate, validateParams(idParamSchema), produto
  *       400:
  *         description: Erro de validação
  */
-router.post("/produtos", authenticate, validateBody(createProdutoSchema), produtosController.criarProduto);
+router.post("/produtos", validateBody(createProdutoSchema), produtosController.criarProduto);
+// ADICIONAR O authenticate aqui depois!!
 
 /**
  * @swagger
@@ -172,7 +175,8 @@ router.post("/produtos", authenticate, validateBody(createProdutoSchema), produt
  *       404:
  *         description: Produto não encontrado
  */
-router.put("/produtos/:id", authenticate, validateParams(idParamSchema), validateBody(updateProdutoSchema), produtosController.atualizarProduto);
+router.put("/produtos/:id", validateParams(idParamSchema), validateBody(updateProdutoSchema), produtosController.atualizarProduto);
+// ADICIONAR O authenticate aqui depois!!
 
 /**
  * @swagger
@@ -193,6 +197,7 @@ router.put("/produtos/:id", authenticate, validateParams(idParamSchema), validat
  *       404:
  *         description: Produto não encontrado
  */
-router.delete("/produtos/:id", authenticate, validateParams(idParamSchema), produtosController.deletarProduto);
+router.delete("/produtos/:id", validateParams(idParamSchema), produtosController.deletarProduto);
+// ADICIONAR O authenticate aqui depois!!
 
 export default router;

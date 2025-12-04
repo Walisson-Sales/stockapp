@@ -1,5 +1,6 @@
 import express from "express";
 import { Express } from "express";
+// import cors from 'cors';
 import categoriaRoutes from "./routes/categoriaRoutes";
 import estoqueRoutes from "./routes/estoqueRoutes";
 import movimentacaoRoutes from "./routes/movimentacaoRoutes";
@@ -14,6 +15,7 @@ dotenv.config();
 const app: Express = express();
 const port: number = Number(process.env.PORT) || 3000;
 
+// app.use(cors());
 app.use(express.json());
 
 app.use(usuarioRoutes);
@@ -32,18 +34,18 @@ const swaggerOptions = {
         version: '1.0.0',
         description: 'API para o sistema de gerenciamento de estoque StockApp',
       },
-      components: {
-      securitySchemes: {
-        bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
-        },
-      },
-    },
-    security: [{
-      bearerAuth: []
-    }],
+    //   components: {
+    //   securitySchemes: {
+    //     bearerAuth: {
+    //       type: 'http',
+    //       scheme: 'bearer',
+    //       bearerFormat: 'JWT',
+    //     },
+    //   },
+    // },
+    // security: [{
+    //   bearerAuth: []
+    // }],
       servers: [
         {
           url: `http://localhost:${port}`,
