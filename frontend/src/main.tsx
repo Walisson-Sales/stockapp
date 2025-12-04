@@ -5,7 +5,6 @@ import App from './App.tsx'
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@emotion/react'
 import { createTheme } from '@mui/material/styles'
-import Dashboard from "./components/Dashboard.tsx";
 const theme = createTheme();
 
 createRoot(document.getElementById('root')!).render(
