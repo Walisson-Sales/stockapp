@@ -8,9 +8,12 @@ import produtosRoutes from "./routes/produtosRoutes";
 import usuarioRoutes from "./routes/usuarioRoutes";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import authRoutes from './routes/authRoutes';
+import dotenv from "dotenv";
 
+dotenv.config();
 const app: Express = express();
-const port: number = 3000;
+const port: number = Number(process.env.PORT) || 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -21,6 +24,7 @@ app.use(produtosRoutes);
 app.use(movimentacaoRoutes);
 app.use("/movimentacoes",movimentacaoRoutes);
 app.use(estoqueRoutes);
+app.use('/auth', authRoutes);
 
 const swaggerOptions = {
     swaggerDefinition: {
@@ -30,6 +34,18 @@ const swaggerOptions = {
         version: '1.0.0',
         description: 'API para o sistema de gerenciamento de estoque StockApp',
       },
+      components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [{
+      bearerAuth: []
+    }],
       servers: [
         {
           url: `http://localhost:${port}`,

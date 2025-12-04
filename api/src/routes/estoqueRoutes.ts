@@ -1,6 +1,6 @@
 import { Router } from "express";
 import estoqueController from "../controllers/estoqueController";
-
+import { authenticate } from '../middlewares/auth';
 const router = Router();
 
 /**
@@ -44,6 +44,6 @@ const router = Router();
  *       500:
  *         description: Erro interno ao buscar o estoque
  */
-router.get("/estoque", estoqueController.listarEstoque);
+router.get("/estoque", authenticate, estoqueController.listarEstoque);
 
 export default router;
