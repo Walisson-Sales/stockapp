@@ -66,9 +66,9 @@ const usuarioService = {
   },
 };
 // adicionar função para buscar usuário por email (usada pelo fluxo de login)
-export const pegarUsuarioPorEmail = async (
-  email: string
-): Promise<Usuario | null> => {
-  return prisma.usuario.findUnique({ where: { email } });
-};
+// export const pegarUsuarioPorEmail = async (
+//   email: string
+// ): Promise<Usuario | null> => {
+//   return prisma.usuario.findUnique({ where: { email } });
+// };
 export default usuarioService;
