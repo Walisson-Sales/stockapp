@@ -122,7 +122,7 @@ router.get("/categorias/:id", validateParams(idParamSchema), categoriaController
  *       '404':
  *         description: Categoria não encontrada.
  */
-router.put("/categoria/:id", validateParams(idParamSchema), validateBody(updateCategoriaSchema), categoriaController.atualizarCategoria);
+router.put("/categorias/:id", validateParams(idParamSchema), validateBody(updateCategoriaSchema), categoriaController.atualizarCategoria);
 
 /**
  * @swagger
@@ -145,6 +145,6 @@ router.put("/categoria/:id", validateParams(idParamSchema), validateBody(updateC
  *       '404':
  *         description: Categoria não encontrada.
  */
-router.delete("/categoria/:id", validateParams(idParamSchema), categoriaController.deletarCategoria);
+router.delete("/categorias/:id", validateParams(idParamSchema), categoriaController.deletarCategoria);
 
 export default router;
