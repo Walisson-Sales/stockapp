@@ -1,8 +1,12 @@
 import { Router } from "express";
 import usuarioController from "../controllers/usuarioController";
-import { validateBody, validateParams } from '../middlewares/validation';
-import { createUsuarioSchema, updateUsuarioSchema, idParamSchema } from '../schemas/validation';
-import { authenticate } from '../middlewares/auth';
+import { validateBody, validateParams } from "../middlewares/validation";
+import {
+  createUsuarioSchema,
+  updateUsuarioSchema,
+  idParamSchema,
+} from "../schemas/validation";
+import { authenticate } from "../middlewares/auth";
 
 const router: Router = Router();
 
@@ -47,7 +51,12 @@ router.get("/usuarios", authenticate, usuarioController.listarTodosUsuarios);
  *       500:
  *         description: Erro interno do servidor
  */
-router.get("/usuarios/:id", authenticate, validateParams(idParamSchema), usuarioController.pegarUsuarioPorId);
+router.get(
+  "/usuarios/:id",
+  authenticate,
+  validateParams(idParamSchema),
+  usuarioController.pegarUsuarioPorId
+);
 
 /**
  * @swagger
@@ -89,7 +98,11 @@ router.get("/usuarios/:id", authenticate, validateParams(idParamSchema), usuario
  *       500:
  *         description: Erro interno do servidor
  */
-router.post("/usuarios", validateBody(createUsuarioSchema), usuarioController.criarUsuario);
+router.post(
+  "/usuarios",
+  validateBody(createUsuarioSchema),
+  usuarioController.criarUsuario
+);
 
 /**
  * @swagger
@@ -132,7 +145,13 @@ router.post("/usuarios", validateBody(createUsuarioSchema), usuarioController.cr
  *       500:
  *         description: Erro interno do servidor
  */
-router.put("/usuarios/:id", authenticate, validateParams(idParamSchema), validateBody(updateUsuarioSchema), usuarioController.atualizarUsuario);
+router.put(
+  "/usuarios/:id",
+  authenticate,
+  validateParams(idParamSchema),
+  validateBody(updateUsuarioSchema),
+  usuarioController.atualizarUsuario
+);
 
 /**
  * @swagger
@@ -154,6 +173,17 @@ router.put("/usuarios/:id", authenticate, validateParams(idParamSchema), validat
  *       500:
  *         description: Erro interno do servidor
  */
-router.delete("/usuarios/:id", authenticate, validateParams(idParamSchema), usuarioController.deletarUsuario);
-
+router.delete(
+  "/usuarios/:id",
+  authenticate,
+  validateParams(idParamSchema),
+  usuarioController.deletarUsuario
+);
+// ROTA DE LOGIN (adicionada):
+// Recebe { email, senha } validado por loginUsuarioSchema e encaminha para controller.loginUsuario
+router.post(
+  "/login",
+  validateBody(loginUsuarioSchema),
+  usuarioController.loginUsuario
+);
 export default router;
