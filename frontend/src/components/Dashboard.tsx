@@ -37,9 +37,9 @@ const Dashboard: React.FC = () => {
 
   const load = async () => {
     try {
-      const [pRes, mRes] = await Promise.all([
+        const [pRes, mRes] = await Promise.all([
         api.get("/estoque"),
-        api.get("/movimentacao"),
+        api.get("/movimentacoes"),
       ]);
 
       setProdutos(pRes.data || []);

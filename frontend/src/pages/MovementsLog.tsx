@@ -27,7 +27,7 @@ const MovementsLog: React.FC = () => {
   const load = async () => {
     setLoading(true);
     try {
-      const res = await api.get("/movimentacao");
+      const res = await api.get("/movimentacoes");
       // map para extrair nome do produto
       const list = (res.data || []).map((m: any) => ({
         id: m.id,
@@ -50,7 +50,7 @@ const MovementsLog: React.FC = () => {
   const handleDelete = async (id: number) => {
     if (!confirm("Deseja realmente deletar essa movimentação?")) return;
     try {
-      await api.delete(`/movimentacao/${id}`);
+      await api.delete(`/movimentacoes/${id}`);
       load();
     } catch (err) {
       alert("Erro ao deletar.");
@@ -64,7 +64,7 @@ const MovementsLog: React.FC = () => {
   const submitEdit = async () => {
     if (!edit.id) return;
     try {
-      await api.put(`/movimentacao/${edit.id}`, { quantidade: edit.quantidade });
+      await api.put(`/movimentacoes/${edit.id}`, { quantidade: edit.quantidade });
       setEdit({ open: false });
       load();
     } catch (err) {

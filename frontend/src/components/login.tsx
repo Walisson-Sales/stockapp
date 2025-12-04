@@ -17,7 +17,7 @@ const Login: React.FC<Props> = ({ onLogin }) => {
     e.preventDefault();
     setError(null);
     try {
-      const res = await fetch("http://localhost:3000/login", {
+      const res = await fetch("http://localhost:3000/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha }),
@@ -52,7 +52,7 @@ const Login: React.FC<Props> = ({ onLogin }) => {
           onChange={(e) => setSenha(e.target.value)}
         />
       </div>
-      <button type="submit">Entrar</button>
+      <button type="submit" style={{ color: "white" }}>Entrar</button>
     </form>
   );
 };

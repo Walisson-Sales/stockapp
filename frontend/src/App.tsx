@@ -1,20 +1,18 @@
-<<<<<<< HEAD
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useState, useEffect } from "react";
 import "./App.css";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Profile from "./components/Profile";
-import PasswordRecovery from "./components/PasswordRecovery";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+import Login from "./components/login";
+import Register from "./components/register";
+import Profile from "./components/profile";
+import PasswordRecovery from "./components/passwordRecovery";
+import Dashboard from "./components/Dashboard";
+import { ProdutosPage } from "./pages/ProdutosPage";
+import { ProdutoDetalhesPage } from "./pages/ProdutoDetalhesPage";
+import { CategoriasPage } from "./pages/CategoriasPage";
+import MovementsLog from "./pages/MovementsLog";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  // estados para controlar as "páginas" e o usuário autenticado
-  const [view, setView] = useState<
-    "login" | "register" | "profile" | "recover"
-  >("login");
   const [user, setUser] = useState<any>(null);
 
   // tenta recuperar usuário do localStorage ao iniciar
@@ -22,106 +20,58 @@ function App() {
     const stored = localStorage.getItem("user");
     if (stored) {
       setUser(JSON.parse(stored));
-      setView("profile");
     }
   }, []);
 
   // handlers para login/logout vindos dos componentes
   const handleLogin = (u: any) => {
     setUser(u);
-    setView("profile");
+    localStorage.setItem("user", JSON.stringify(u));
   };
+
   const handleLogout = () => {
     setUser(null);
-    setView("login");
+    localStorage.removeItem("user");
   };
-=======
-// src/App.tsx
-// import React from 'react';
-import './App.css';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { CategoriasPage } from './pages/CategoriasPage';
-import { ProdutoDetalhesPage } from './pages/ProdutoDetalhesPage';
-import { ProdutosPage } from './pages/ProdutosPage';
 
-function App() {
->>>>>>> main
   return (
     <BrowserRouter>
       <div className="App">
         <header>
           <h1>Meu App</h1>
-          <nav>
-            <ul>
-              <li><Link to="/">Categorias</Link></li>
-              <li><Link to="/produtos">Produtos</Link></li>
-            </ul>
-          </nav>
         </header>
+
+        <nav style={{ display: "flex", gap: 8, margin: "16px 0" }}>
+          <Link to="/">Dashboard</Link>
+          <Link to="/produtos">Produtos</Link>
+          <Link to="/categorias">Categorias</Link>
+          <Link to="/movimentacoes">Movimentações</Link>
+          {!user && <Link to="/login">Login</Link>}
+          {!user && <Link to="/register">Cadastro</Link>}
+          <Link to="/recover">Recuperar Senha</Link>
+          {user && <Link to="/profile">Perfil</Link>}
+          {user && (
+            <button style={{ marginLeft: 8 }} onClick={handleLogout}>Sair</button>
+          )}
+        </nav>
 
         <main>
           <Routes>
-            <Route path="/" element={<CategoriasPage />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/produtos" element={<ProdutosPage />} />
             <Route path="/produtos/:id" element={<ProdutoDetalhesPage />} />
+            <Route path="/categorias" element={<CategoriasPage />} />
+            <Route path="/movimentacoes" element={<MovementsLog />} />
+
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route path="/register" element={<Register onRegistered={() => { /* opcional: redirecionar */ }} />} />
+            <Route path="/profile" element={<Profile user={user} onLogout={handleLogout} />} />
+            <Route path="/recover" element={<PasswordRecovery />} />
           </Routes>
         </main>
       </div>
-<<<<<<< HEAD
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-
-    {/* navegação simples entre páginas */}
-      <nav style={{display:'flex',gap:8,margin:'16px 0'}}>
-        {!user && <button onClick={()=>setView('login')}>Login</button>}
-        {!user && <button onClick={()=>setView('register')}>Cadastro</button>}
-        <button onClick={()=>setView('recover')}>Recuperar Senha</button>
-        {user && <button onClick={()=>setView('profile')}>Perfil</button>}
-      </nav>
-
-      {/* NOVO: área principal que mostra o componente conforme view */}
-      <main>
-        {view === 'login' && <Login onLogin={handleLogin} />}
-        {view === 'register' && <Register onRegistered={() => setView('login')} />}
-        {view === 'profile' && <Profile user={user} onLogout={handleLogout} />}
-        {view === 'recover' && <PasswordRecovery />}
-      </main>
-    </>
-  );
-}
-
-export default App;
-
-// Da aula:
-// // import { useState } from 'react'
-// // import reactLogo from './assets/react.svg'
-// // import viteLogo from '/vite.svg'
-// import './App.css'
-// import Login from './components/Login.tsx'
-
-// function App() {
-
-//   return (
-//     <div className="App"><Login /></div>
-//   )
-// }
-
-// export default App
-=======
     </BrowserRouter>
   );
 }
 
 export default App;
->>>>>>> main

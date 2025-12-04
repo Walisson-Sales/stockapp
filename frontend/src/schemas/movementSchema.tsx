@@ -8,7 +8,7 @@ export const movementSchema = z.object({
     error: "O tipo é obrigatório"
   }),
   quantity: z.number().min(1, "Quantidade deve ser maior que zero"),
-  productId: z.string().uuid("ID do produto inválido")
+  productId: z.number().int().positive("ID do produto inválido")
 });
 
 export type MovementInput = z.infer<typeof movementSchema>;

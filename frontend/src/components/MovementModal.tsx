@@ -21,7 +21,7 @@ type Props = {
   defaultUserId?: number;
 };
 
-type Product = { id: string; nome: string; quantidade: number };
+type Product = { id: number; nome: string; quantidade: number };
 
 const MovementModal: React.FC<Props> = ({
   open,
@@ -35,7 +35,7 @@ const MovementModal: React.FC<Props> = ({
   const [submitting, setSubmitting] = useState(false);
 
   const [form, setForm] = useState({
-    productId: "",
+    productId: 0,
     type: "entrada",
     quantity: 1,
     userId: defaultUserId || 0,
@@ -66,7 +66,7 @@ const MovementModal: React.FC<Props> = ({
     setForm((prev) => ({
       ...prev,
       [name]:
-        name === "quantity" || name === "userId"
+        name === "quantity" || name === "userId" || name === "productId"
           ? Number(value)
           : value,
     }));
@@ -89,10 +89,15 @@ const MovementModal: React.FC<Props> = ({
 
     try {
       setSubmitting(true);
-      await api.post("/movimentacao", {
-        ...parsed.data,
-        userId: form.userId,
-      });
+      // mapear para os nomes esperados pelo backend
+      const payload = {
+        idProduto: Number(parsed.data.productId),
+        tipoMovimentacao: parsed.data.type === "entrada" ? "Entrada" : "Saída",
+        quantidade: parsed.data.quantity,
+        idUsuario: Number(form.userId),
+      };
+
+      await api.post("/movimentacoes", payload);
       setSubmitting(false);
       onSuccess?.();
       onClose();
